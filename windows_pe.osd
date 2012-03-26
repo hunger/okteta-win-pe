@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <enumDef name="ImageFileMachineEnum" type="UInt16">
+        <entry value="0" name="UNKNOWN"/>
+        <entry value="467" name="AM33"/>
+        <entry value="34404" name="AMD64"/>
+        <entry value="448" name="ARM (little endian)"/>
+        <entry value="452" name="ARMV7 (v7+, thumb)"/>
+        <entry value="3772" name="EBC (EFI byte code)"/>
+        <entry value="332" name="I386 (or later)"/>
+        <entry value="512" name="IA64"/>
+        <entry value="36929" name="M32R"/>
+        <entry value="614" name="MIPS16"/>
+        <entry value="870" name="MIPSFPU"/>
+        <entry value="1126" name="MIPSFPU16"/>
+        <entry value="496" name="POWERPC (little endian)"/>
+        <entry value="497" name="POWERPCCFP (with FPU)"/>
+        <entry value="358" name="R4000"/>
+        <entry value="418" name="SH3"/>
+        <entry value="419" name="SH3DSP"/>
+        <entry value="422" name="SH4"/>
+        <entry value="424" name="SH5"/>
+        <entry value="450" name="THUMB"/>
+        <entry value="361" name="WCEMIPSV2"/>
+    </enumDef>
+
+    <enumDef name="OptionalHeaderMagicEnum" type="UInt16">
+        <entry value="267" name="PE32"/>
+        <entry value="523" name="PE32+"/>
+    </enumDef>
+
+    <enumDef name="ImageSubsystemEnum" type="UInt16">
+        <entry value="0" name="UNKNOWN"/>
+        <entry value="1" name="NATIVE"/>
+        <entry value="2" name="WINDOWS_GUI"/>
+        <entry value="3" name="WINDOWS_CUI"/>
+        <entry value="7" name="POSIX_CUI"/>
+        <entry value="9" name="WINDOWS_CE_GUI"/>
+        <entry value="10" name="EFI_APPLICATION"/>
+        <entry value="11" name="EFI_BOOT_SERVICE_DRIVER"/>
+        <entry value="12" name="EFI_RUNTIME_DRIVER"/>
+        <entry value="13" name="EFI_ROM"/>
+        <entry value="14" name="XBOX"/>
+    </enumDef>
+
+    <struct name="COFF header">
+        <enum name="Machine" enum="ImageFileMachineEnum" type="UInt16"/>
+        <primitive name="NumberOfSections" type="Int16"/>
+        <primitive name="TimeDateStamp" type="UInt32"/>
+        <primitive name="PointerToSymbolTable" type="UInt32"/>
+        <primitive name="NumberOfSymbols" type="UInt32"/>
+        <primitive name="SizeOfOptionalHeader" type="UInt16"/>
+        <primitive name="Characteristics" type="UInt16"/>
+    </struct>
+    <struct name="Optional Header - Standard fields">
+        <enum name="Magic" enum="OptionalHeaderMagicEnum" type="UInt16"/>
+        <primitive name="MajorLinkerVersion =" type="Int8"/>
+        <primitive name="MinorLinkerVersion =" type="Int8"/>
+        <primitive name="SizeOfCode =" type="Int32"/>
+        <primitive name="SizeOfInitializedData =" type="Int32"/>
+        <primitive name="SizeOfUninitializedData =" type="Int32"/>
+        <primitive name="AddressOfEntryPoint =" type="Int32"/>
+        <primitive name="BaseOfCode =" type="Int32"/>
+        <primitive name="BaseOfData (PE32 only)" type="Int32"/>
+    </struct>
+    <struct name="Optional Header (PE32) - Windows specific fields">
+        <primitive name="ImageBase" type="Int32"/>
+        <primitive name="SectionAlignment =" type="Int32"/>
+        <primitive name="FileAlignment =" type="Int32"/>
+        <primitive name="MajorOperatingSystemVersion =" type="Int16"/>
+        <primitive name="MinorOperatingSystemVersion =" type="Int16"/>
+        <primitive name="MajorImageVersion =" type="Int16"/>
+        <primitive name="MinorImageVersion =" type="Int16"/>
+        <primitive name="MajorSubsystemVersion =" type="Int16"/>
+        <primitive name="MinorSubsystemVersion =" type="Int16"/>
+        <primitive name="Win32VersionValue (must be 0) =" type="Int32"/>
+        <primitive name="SizeOfImage =" type="Int32"/>
+        <primitive name="SizeOfHeaders =" type="Int32"/>
+        <primitive name="Checksum =" type="Int32"/>
+        <enum name="Subsystem =" enum="ImageSubsystemEnum" type="UInt16"/>
+        <primitive name="DllCharacteristics =" type="Int16"/>
+        <primitive name="SizeOfStackReserve" type="Int32"/>
+        <primitive name="SizeOfStackCommit" type="Int32"/>
+        <primitive name="SizeOfHeapReserve" type="Int32"/>
+        <primitive name="SizeOfHeapCommit" type="Int32"/>
+        <primitive name="LoaderFlags" type="Int32"/>
+        <primitive name="NumberOfRvaAndSizes" type="Int32"/>
+    </struct>
+    <struct name="Optional Header (PE32+) - Windows specific fields">
+        <primitive name="ImageBase" type="Int64"/>
+        <primitive name="SectionAlignment =" type="Int32"/>
+        <primitive name="FileAlignment =" type="Int32"/>
+        <primitive name="MajorOperatingSystemVersion =" type="Int16"/>
+        <primitive name="MinorOperatingSystemVersion =" type="Int16"/>
+        <primitive name="MajorImageVersion =" type="Int16"/>
+        <primitive name="MinorImageVersion =" type="Int16"/>
+        <primitive name="MajorSubsystemVersion =" type="Int16"/>
+        <primitive name="MinorSubsystemVersion =" type="Int16"/>
+        <primitive name="Win32VersionValue (must be 0) =" type="Int32"/>
+        <primitive name="SizeOfImage =" type="Int32"/>
+        <primitive name="SizeOfHeaders =" type="Int32"/>
+        <primitive name="Checksum =" type="Int32"/>
+        <primitive name="Subsystem =" type="Int16"/>
+        <primitive name="DllCharacteristics =" type="Int16"/>
+        <primitive name="SizeOfStackReserve" type="Int64"/>
+        <primitive name="SizeOfStackCommit" type="Int64"/>
+        <primitive name="SizeOfHeapReserve" type="Int64"/>
+        <primitive name="SizeOfHeapCommit" type="Int64"/>
+        <primitive name="LoaderFlags" type="Int32"/>
+        <primitive name="NumberOfRvaAndSizes" type="Int32"/>
+    </struct>
+</data>
+

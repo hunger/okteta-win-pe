@@ -1,0 +1,18 @@
+[Desktop Entry]
+Encoding=UTF-8
+Icon=arrow-up
+Type=Service
+ServiceTypes=KPluginInfo
+
+Name=Windows exectuable structues
+Comment=Basic Windows exectuable structures as described in pecoff_v8
+
+X-KDE-PluginInfo-Author=Tobias Hunger
+X-KDE-PluginInfo-Email=tobias.hunger@gmx.de
+X-KDE-PluginInfo-Name=windows_pe
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Website=
+X-KDE-PluginInfo-Category=structure
+X-KDE-PluginInfo-License=LGPL
+X-KDE-PluginInfo-EnabledByDefault=false
+
