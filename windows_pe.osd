@@ -43,17 +43,6 @@
         <entry value="14" name="XBOX"/>
     </enumDef>
     
-    <enumDef name="COFFCharacteristcs" type="UInt16">
-        <entry value="1" name="RELOCATIONS_STRIPPED"/>
-        <entry value="2" name="EXECUTABLE_IMAGE"/>
-        <entry value="4" name="LINE_NUMBERS_REMOVED"/>
-        <entry value="4" name="LOCAL_SYMBOLS_REMOVED"/>
-        <entry value="4" name="AGRESSIVELY_TRIM"/>
-        <entry value="4" name="HANDLE_MORE_THAN_2GB_ADDRESSES"/>
-        <entry value="4" name="LITTLE_ENDIAN"/>
-        <entry value="4" name="32-BIT_MACHINE"/>
-    </enumDef>
-    
     <struct name="DOS header">
         <primitive name="MagicNumber" type="UInt16"/>
         <primitive name="BytesOnLastPage" type="UInt16"/>
@@ -79,8 +68,8 @@
         </array>
         <primitive name="AddressOfPESignature" type="UInt16"/>
     </struct>
+
     <string name="PESignature" maxByteCount="4"/>
-    
     <struct name="COFF header">
         <enum name="Machine" enum="ImageFileMachineEnum" type="UInt16"/>
         <primitive name="NumberOfSections" type="UInt16"/>
@@ -89,13 +78,13 @@
         <primitive name="NumberOfSymbols" type="UInt32"/>
         <primitive name="SizeOfOptionalHeader" type="UInt16"/>
         <struct name="Characteristics">
-             <bitfield name="base relocations stripped" type="bool" width="1"/>
+            <bitfield name="base relocations stripped" type="bool" width="1"/>
             <bitfield name="executable image" type="bool" width="1"/>
             <bitfield name="line numbers removed (deprecated)" type="bool" width="1"/>
             <bitfield name="local symbols removed (deprecated)" type="bool" width="1"/>
             <bitfield name="aggressively trim (deprecated for Windows 2000 and later)" type="bool" width="1"/>
             <bitfield name="can handle more than 2 GB addresses" type="bool" width="1"/>
-            <bitfield name="reserved" type="bool" width="1"/>
+            <bitfield name="reserved for future use" type="bool" width="1"/>
             <bitfield name="little-endian (deprecated)" type="bool" width="1"/>
             <bitfield name="32-bit machine" type="bool" width="1"/>
             <bitfield name="debugging information removed" type="bool" width="1"/>
@@ -105,7 +94,7 @@
             <bitfield name="DLL image" type="bool" width="1"/>
             <bitfield name="uniprocessor machine" type="bool" width="1"/>
             <bitfield name="big-endian (deprecated)" type="bool" width="1"/>
-1        </struct>
+        </struct>
     </struct>
 
     <struct name="Optional Header - Standard fields">
@@ -119,6 +108,7 @@
         <primitive name="BaseOfCode =" type="UInt32"/>
         <primitive name="BaseOfData (PE32 only)" type="UInt32"/>
     </struct>
+
     <struct name="Optional Header (PE32) - Windows specific fields">
         <primitive name="ImageBase" type="UInt32"/>
         <primitive name="SectionAlignment =" type="UInt32"/>
@@ -142,6 +132,7 @@
         <primitive name="LoaderFlags" type="UInt32"/>
         <primitive name="NumberOfRvaAndSizes" type="UInt32"/>
     </struct>
+
     <struct name="Optional Header (PE32+) - Windows specific fields">
         <primitive name="ImageBase" type="UInt64"/>
         <primitive name="SectionAlignment =" type="UInt32"/>
