@@ -44,7 +44,9 @@
     </enumDef>
     
     <struct name="DOS header">
-        <primitive name="MagicNumber" type="UInt16"/>
+        <array name="MagicNumber" length="2">
+            <primitive type="char"/>
+        </array>
         <primitive name="BytesOnLastPage" type="UInt16"/>
         <primitive name="Pages" type="UInt16"/>
         <primitive name="Relocations" type="UInt16"/>
@@ -66,10 +68,11 @@
         <array name="ReservedWords" length="10">
             <primitive type="UInt16"/>
         </array>
-        <primitive name="AddressOfPESignature" type="UInt16"/>
+        <primitive name="AddressOfNTSignature" type="UInt16"/>
     </struct>
 
-    <string name="PESignature" maxByteCount="4"/>
+    <string name="NTSignature" maxByteCount="4"/>
+    
     <struct name="COFF header">
         <enum name="Machine" enum="ImageFileMachineEnum" type="UInt16"/>
         <primitive name="NumberOfSections" type="UInt16"/>
