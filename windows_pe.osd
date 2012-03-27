@@ -33,8 +33,8 @@
         <entry value="0" name="UNKNOWN"/>
         <entry value="1" name="NATIVE"/>
         <entry value="2" name="WINDOWS_GUI"/>
-        <entry value="3" name="WINDOWS_CUI"/>
-        <entry value="7" name="POSIX_CUI"/>
+        <entry value="3" name="WINDOWS_CLI"/>
+        <entry value="7" name="POSIX_CLI"/>
         <entry value="9" name="WINDOWS_CE_GUI"/>
         <entry value="10" name="EFI_APPLICATION"/>
         <entry value="11" name="EFI_BOOT_SERVICE_DRIVER"/>
@@ -42,72 +42,127 @@
         <entry value="13" name="EFI_ROM"/>
         <entry value="14" name="XBOX"/>
     </enumDef>
-
+    
+    <enumDef name="COFFCharacteristcs" type="UInt16">
+        <entry value="1" name="RELOCATIONS_STRIPPED"/>
+        <entry value="2" name="EXECUTABLE_IMAGE"/>
+        <entry value="4" name="LINE_NUMBERS_REMOVED"/>
+        <entry value="4" name="LOCAL_SYMBOLS_REMOVED"/>
+        <entry value="4" name="AGRESSIVELY_TRIM"/>
+        <entry value="4" name="HANDLE_MORE_THAN_2GB_ADDRESSES"/>
+        <entry value="4" name="LITTLE_ENDIAN"/>
+        <entry value="4" name="32-BIT_MACHINE"/>
+    </enumDef>
+    
+    <struct name="DOS header">
+        <primitive name="MagicNumber" type="UInt16"/>
+        <primitive name="BytesOnLastPage" type="UInt16"/>
+        <primitive name="Pages" type="UInt16"/>
+        <primitive name="Relocations" type="UInt16"/>
+        <primitive name="SizeOfHeadersInParagraphs" type="UInt16"/>
+        <primitive name="MinimumExtraParagraphs" type="UInt16"/>
+        <primitive name="MaximumExtraParagraphs" type="UInt16"/>
+        <primitive name="Initial(Relative)SSValue" type="UInt16"/>
+        <primitive name="InitialSPValue" type="UInt16"/>
+        <primitive name="Checksum" type="UInt16"/>
+        <primitive name="InitialIPValue" type="UInt16"/>
+        <primitive name="Initial(Relative)CSValue" type="UInt16"/>
+        <primitive name="AddressOfRelocationTable" type="UInt16"/>
+        <primitive name="OverlayNumber" type="UInt16"/>
+        <array name="ReservedWords" length="4">
+            <primitive type="UInt16"/>
+        </array>
+        <primitive name="OEMIdentifier" type="UInt16"/>
+        <primitive name="OEMInformation" type="UInt16"/>
+        <array name="ReservedWords" length="10">
+            <primitive type="UInt16"/>
+        </array>
+        <primitive name="AddressOfPESignature" type="UInt16"/>
+    </struct>
+    <string name="PESignature" maxByteCount="4"/>
+    
     <struct name="COFF header">
         <enum name="Machine" enum="ImageFileMachineEnum" type="UInt16"/>
-        <primitive name="NumberOfSections" type="Int16"/>
+        <primitive name="NumberOfSections" type="UInt16"/>
         <primitive name="TimeDateStamp" type="UInt32"/>
         <primitive name="PointerToSymbolTable" type="UInt32"/>
         <primitive name="NumberOfSymbols" type="UInt32"/>
         <primitive name="SizeOfOptionalHeader" type="UInt16"/>
-        <primitive name="Characteristics" type="UInt16"/>
+        <struct name="Characteristics">
+             <bitfield name="base relocations stripped" type="bool" width="1"/>
+            <bitfield name="executable image" type="bool" width="1"/>
+            <bitfield name="line numbers removed (deprecated)" type="bool" width="1"/>
+            <bitfield name="local symbols removed (deprecated)" type="bool" width="1"/>
+            <bitfield name="aggressively trim (deprecated for Windows 2000 and later)" type="bool" width="1"/>
+            <bitfield name="can handle more than 2 GB addresses" type="bool" width="1"/>
+            <bitfield name="reserved" type="bool" width="1"/>
+            <bitfield name="little-endian (deprecated)" type="bool" width="1"/>
+            <bitfield name="32-bit machine" type="bool" width="1"/>
+            <bitfield name="debugging information removed" type="bool" width="1"/>
+            <bitfield name="copy to swap if it's on removable media" type="bool" width="1"/>
+            <bitfield name="copy to swap if it's on network media" type="bool" width="1"/>
+            <bitfield name="system file" type="bool" width="1"/>
+            <bitfield name="DLL image" type="bool" width="1"/>
+            <bitfield name="uniprocessor machine" type="bool" width="1"/>
+            <bitfield name="big-endian (deprecated)" type="bool" width="1"/>
+1        </struct>
     </struct>
+
     <struct name="Optional Header - Standard fields">
         <enum name="Magic" enum="OptionalHeaderMagicEnum" type="UInt16"/>
-        <primitive name="MajorLinkerVersion =" type="Int8"/>
-        <primitive name="MinorLinkerVersion =" type="Int8"/>
-        <primitive name="SizeOfCode =" type="Int32"/>
-        <primitive name="SizeOfInitializedData =" type="Int32"/>
-        <primitive name="SizeOfUninitializedData =" type="Int32"/>
-        <primitive name="AddressOfEntryPoint =" type="Int32"/>
-        <primitive name="BaseOfCode =" type="Int32"/>
-        <primitive name="BaseOfData (PE32 only)" type="Int32"/>
+        <primitive name="MajorLinkerVersion =" type="UInt8"/>
+        <primitive name="MinorLinkerVersion =" type="UInt8"/>
+        <primitive name="SizeOfCode =" type="UInt32"/>
+        <primitive name="SizeOfInitializedData =" type="UInt32"/>
+        <primitive name="SizeOfUninitializedData =" type="UInt32"/>
+        <primitive name="AddressOfEntryPoint =" type="UInt32"/>
+        <primitive name="BaseOfCode =" type="UInt32"/>
+        <primitive name="BaseOfData (PE32 only)" type="UInt32"/>
     </struct>
     <struct name="Optional Header (PE32) - Windows specific fields">
-        <primitive name="ImageBase" type="Int32"/>
-        <primitive name="SectionAlignment =" type="Int32"/>
-        <primitive name="FileAlignment =" type="Int32"/>
-        <primitive name="MajorOperatingSystemVersion =" type="Int16"/>
-        <primitive name="MinorOperatingSystemVersion =" type="Int16"/>
-        <primitive name="MajorImageVersion =" type="Int16"/>
-        <primitive name="MinorImageVersion =" type="Int16"/>
-        <primitive name="MajorSubsystemVersion =" type="Int16"/>
-        <primitive name="MinorSubsystemVersion =" type="Int16"/>
-        <primitive name="Win32VersionValue (must be 0) =" type="Int32"/>
-        <primitive name="SizeOfImage =" type="Int32"/>
-        <primitive name="SizeOfHeaders =" type="Int32"/>
-        <primitive name="Checksum =" type="Int32"/>
+        <primitive name="ImageBase" type="UInt32"/>
+        <primitive name="SectionAlignment =" type="UInt32"/>
+        <primitive name="FileAlignment =" type="UInt32"/>
+        <primitive name="MajorOperatingSystemVersion =" type="UInt16"/>
+        <primitive name="MinorOperatingSystemVersion =" type="UInt16"/>
+        <primitive name="MajorImageVersion =" type="UInt16"/>
+        <primitive name="MinorImageVersion =" type="UInt16"/>
+        <primitive name="MajorSubsystemVersion =" type="UInt16"/>
+        <primitive name="MinorSubsystemVersion =" type="UInt16"/>
+        <primitive name="Win32VersionValue (must be 0) =" type="UInt32"/>
+        <primitive name="SizeOfImage =" type="UInt32"/>
+        <primitive name="SizeOfHeaders =" type="UInt32"/>
+        <primitive name="Checksum =" type="UInt32"/>
         <enum name="Subsystem =" enum="ImageSubsystemEnum" type="UInt16"/>
-        <primitive name="DllCharacteristics =" type="Int16"/>
-        <primitive name="SizeOfStackReserve" type="Int32"/>
-        <primitive name="SizeOfStackCommit" type="Int32"/>
-        <primitive name="SizeOfHeapReserve" type="Int32"/>
-        <primitive name="SizeOfHeapCommit" type="Int32"/>
-        <primitive name="LoaderFlags" type="Int32"/>
-        <primitive name="NumberOfRvaAndSizes" type="Int32"/>
+        <primitive name="DllCharacteristics =" type="UInt16"/>
+        <primitive name="SizeOfStackReserve" type="UInt32"/>
+        <primitive name="SizeOfStackCommit" type="UInt32"/>
+        <primitive name="SizeOfHeapReserve" type="UInt32"/>
+        <primitive name="SizeOfHeapCommit" type="UInt32"/>
+        <primitive name="LoaderFlags" type="UInt32"/>
+        <primitive name="NumberOfRvaAndSizes" type="UInt32"/>
     </struct>
     <struct name="Optional Header (PE32+) - Windows specific fields">
-        <primitive name="ImageBase" type="Int64"/>
-        <primitive name="SectionAlignment =" type="Int32"/>
-        <primitive name="FileAlignment =" type="Int32"/>
-        <primitive name="MajorOperatingSystemVersion =" type="Int16"/>
-        <primitive name="MinorOperatingSystemVersion =" type="Int16"/>
-        <primitive name="MajorImageVersion =" type="Int16"/>
-        <primitive name="MinorImageVersion =" type="Int16"/>
-        <primitive name="MajorSubsystemVersion =" type="Int16"/>
-        <primitive name="MinorSubsystemVersion =" type="Int16"/>
-        <primitive name="Win32VersionValue (must be 0) =" type="Int32"/>
-        <primitive name="SizeOfImage =" type="Int32"/>
-        <primitive name="SizeOfHeaders =" type="Int32"/>
-        <primitive name="Checksum =" type="Int32"/>
-        <primitive name="Subsystem =" type="Int16"/>
-        <primitive name="DllCharacteristics =" type="Int16"/>
-        <primitive name="SizeOfStackReserve" type="Int64"/>
-        <primitive name="SizeOfStackCommit" type="Int64"/>
-        <primitive name="SizeOfHeapReserve" type="Int64"/>
-        <primitive name="SizeOfHeapCommit" type="Int64"/>
-        <primitive name="LoaderFlags" type="Int32"/>
-        <primitive name="NumberOfRvaAndSizes" type="Int32"/>
+        <primitive name="ImageBase" type="UInt64"/>
+        <primitive name="SectionAlignment =" type="UInt32"/>
+        <primitive name="FileAlignment =" type="UInt32"/>
+        <primitive name="MajorOperatingSystemVersion =" type="UInt16"/>
+        <primitive name="MinorOperatingSystemVersion =" type="UInt16"/>
+        <primitive name="MajorImageVersion =" type="UInt16"/>
+        <primitive name="MinorImageVersion =" type="UInt16"/>
+        <primitive name="MajorSubsystemVersion =" type="UInt16"/>
+        <primitive name="MinorSubsystemVersion =" type="UInt16"/>
+        <primitive name="Win32VersionValue (must be 0) =" type="UInt32"/>
+        <primitive name="SizeOfImage =" type="UInt32"/>
+        <primitive name="SizeOfHeaders =" type="UInt32"/>
+        <primitive name="Checksum =" type="UInt32"/>
+        <primitive name="Subsystem =" type="UInt16"/>
+        <primitive name="DllCharacteristics =" type="UInt16"/>
+        <primitive name="SizeOfStackReserve" type="UInt64"/>
+        <primitive name="SizeOfStackCommit" type="UInt64"/>
+        <primitive name="SizeOfHeapReserve" type="UInt64"/>
+        <primitive name="SizeOfHeapCommit" type="UInt64"/>
+        <primitive name="LoaderFlags" type="UInt32"/>
+        <primitive name="NumberOfRvaAndSizes" type="UInt32"/>
     </struct>
 </data>
-
