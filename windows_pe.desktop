@@ -1,18 +1,17 @@
 [Desktop Entry]
 Encoding=UTF-8
-Icon=arrow-up
+Icon=application-x-executable
 Type=Service
 ServiceTypes=KPluginInfo
 
-Name=Windows exectuable structues
-Comment=Basic Windows exectuable structures as described in pecoff_v8
+Name=PE structure
+Comment=Structure for MS-Windows Portable Executable (PE)
 
 X-KDE-PluginInfo-Author=Tobias Hunger
 X-KDE-PluginInfo-Email=tobias.hunger@gmx.de
 X-KDE-PluginInfo-Name=windows_pe
-X-KDE-PluginInfo-Version=1.0
-X-KDE-PluginInfo-Website=
+X-KDE-PluginInfo-Version=1.1
+X-KDE-PluginInfo-Website=https://github.com/hunger/okteta-win-pe
 X-KDE-PluginInfo-Category=structure
-X-KDE-PluginInfo-License=LGPL
+X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=false
-
