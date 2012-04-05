@@ -17,6 +17,7 @@ in the okteta manual for details on how to install this.
 ## Authors
 
 - Tobias Hunger ([hunger](https://github.com/hunger))
+- Fernando Mercês ([merces](https://github.com/merces))
 
 ## License
 
